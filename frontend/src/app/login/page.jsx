@@ -111,7 +111,7 @@ export default function LoginPage() {
 
 
             <button
-              type="submit"
+              type="submit"//important type cant be button for form submission
               className="auth-btn"
             >
               Login →

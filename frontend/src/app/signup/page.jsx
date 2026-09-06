@@ -9,15 +9,18 @@ export default function SignUpPage() {
   
   const signupForm = useFormik({
         initialValues: {
-            email: "",
-            password: ""
+          name: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+
         },
         onSubmit: (values) => {
             console.log(values);
 
-            axios.post("http://localhost:5000/user/authenticate", values)
+            axios.post("http://localhost:5000/user/add", values)
                 .then((response) => {
-                    toast.success("Login successful!");
+                    toast.success("Account created successfully!");
                     console.log(response.data);
 
                 }).catch((err) => {
@@ -25,7 +28,7 @@ export default function SignUpPage() {
                         toast.error("Invalid email or password!");
                     } else {
                         console.log(err);
-                        toast.error("An error occurred. Please try again later.");
+                        toast.error("Some error occurred. Please try again later.");
                     }
                 });
 
@@ -89,12 +92,15 @@ export default function SignUpPage() {
           </p>
 
 
-          <form>
+          <form onSubmit={signupForm.handleSubmit}>
 
             <label>Full Name</label>
 
             <input
               type="text"
+              id="name"
+              onChange={signupForm.handleChange}
+              value={signupForm.values.name}
               placeholder="Enter your full name"
               required
             />
@@ -104,6 +110,9 @@ export default function SignUpPage() {
 
             <input
               type="email"
+              id="email"
+              onChange={signupForm.handleChange}
+              value={signupForm.values.email}
               placeholder="Enter your email"
               required
             />
@@ -113,6 +122,9 @@ export default function SignUpPage() {
 
             <input
               type="password"
+              id="password"
+              onChange={signupForm.handleChange}
+              value={signupForm.values.password}
               placeholder="Create a password"
               required
             />
@@ -122,6 +134,9 @@ export default function SignUpPage() {
 
             <input
               type="password"
+              id="confirmPassword"
+              onChange={signupForm.handleChange}
+              value={signupForm.values.confirmPassword}
               placeholder="Confirm your password"
               required
             />

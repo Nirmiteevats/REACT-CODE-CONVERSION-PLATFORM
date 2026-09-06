@@ -9,7 +9,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <Toaster position="top-right"/>
+        <Toaster position="top-center"/>//important for toast notifications to work
         {children}</body>
     </html>
   );
