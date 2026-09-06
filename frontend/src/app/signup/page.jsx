@@ -1,6 +1,36 @@
+"use client";
+
+import axios from "axios";
+import { useFormik } from "formik";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 export default function SignUpPage() {
+  
+  const signupForm = useFormik({
+        initialValues: {
+            email: "",
+            password: ""
+        },
+        onSubmit: (values) => {
+            console.log(values);
+
+            axios.post("http://localhost:5000/user/authenticate", values)
+                .then((response) => {
+                    toast.success("Login successful!");
+                    console.log(response.data);
+
+                }).catch((err) => {
+                    if (err.response.status === 401) {
+                        toast.error("Invalid email or password!");
+                    } else {
+                        console.log(err);
+                        toast.error("An error occurred. Please try again later.");
+                    }
+                });
+
+        }
+    })
   return (
     <main className="auth-page">
 
