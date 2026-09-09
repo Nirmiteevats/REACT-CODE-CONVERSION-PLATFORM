@@ -4,6 +4,23 @@ import axios from "axios";
 import { useFormik } from "formik";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import * as Yup from "yup";
+
+const validationSchema = Yup.object({
+  name: Yup.string()
+    .trim()
+    .required("Please enter your full name"),
+  email: Yup.string()
+    .trim()
+    .email("Enter a complete email address, like nora@example.com")
+    .required("Email is required"),
+  password: Yup.string()
+    .min(8, "Needs at least 8 characters")
+    .required("Password is required"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password")], "Passwords don't match")
+    .required("Please confirm your password"),
+});
 
 export default function SignUpPage() {
   
